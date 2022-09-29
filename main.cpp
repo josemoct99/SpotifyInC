@@ -1,6 +1,8 @@
 #include <cstdlib> //Para usar System (refrescar la pantalla en el CLI )
 #include <iostream> //Entrada y salida de datos en consola
 #include <clocale> //Permitir tildes en consola
+
+#include <vector>
 using namespace std;
 
 //Declaración de las funciones
@@ -47,10 +49,10 @@ void menuPrincipal(){
 				menuIngresarInfo();
 				break;
 			case 2:
-				//menuModificarInfo();
+				menuModificarInfo();
 				break;
 			case 3:
-				//menuBuscarInfo();
+				menuBuscarInfo();
 				break;
 			case 0:
 				repetir = false;
@@ -113,8 +115,9 @@ void menuAgregarArtista(){
 	bool repetir = true;
 	//lee la opcion del usuario (elige un numero)
 	int opcion;
-	//Variable para leer el nuevo artista
-	char nomArtista[50];	
+	
+	vector<string> listPrueba;
+	
 	do{
 		system("cls");
 		cout << "\t\t\t 1. Cargar artista por consola" << endl;
@@ -123,10 +126,48 @@ void menuAgregarArtista(){
 		cin >> opcion;
 		switch(opcion){
 			case 1:
-				cout << "\t\t\t Escribe el nombre de la sala" << endl << "\t\t\t";
+				//Variable para leer el nombre del artista
+				char nomArtista[50];
+				//Variable para leer el id del artista
+				int id;
+				//Variable para leer la cantidad de álbumes del artista
+				int cantAlbumes;
+				//Variable para leer el nombre de cada album del artista
+				char nomAlbum[50];
+				//Variable para leer la cantidad de oyentes del artista
+				int cantOyentes;
+				
+				
+				
+				
+				cout << "\t\t\t Escribe el código del artista" << endl << "\t\t\t";
+				cin >> id;
+				cout << "\t\t\t Escribe el nombre del artista" << endl << "\t\t\t";
 				cin.ignore();  //Le pide a getline que ignore el salto de linea hecho anteriormente (endl)
 				cin.getline(nomArtista,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
-				cout << "\t\t\t Se ha agregado el artista "<<nomArtista<<endl;
+				cout << "\t\t\t Escribe la cantidad de álbumes del artista" << endl << "\t\t\t";
+				cin >> cantAlbumes;
+				cin.ignore();
+				
+				for(int i=0; i<cantAlbumes; i++){
+					cout << "\t\t\t Escribe el nombre del album " <<  i+1 <<endl << "\t\t\t";
+					cin.getline(nomAlbum,50);
+					listPrueba.push_back(nomAlbum);
+				}
+				
+				for(string album : listPrueba){
+					cout << "ALBUM: " << album << endl;
+				}
+				
+				
+				cout << "\t\t\t Escribe la cantidad de oyentes del artista" << endl << "\t\t\t";
+				cin >> cantOyentes;
+				
+				//RESTO
+				
+				
+				
+				cout << "\t\t\t Se ha agregado el artista "<<nomArtista<<endl<<id<<endl<<cantAlbumes<<endl<<cantOyentes;
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -157,10 +198,43 @@ void menuAgregarCancion(){
 		cin >> opcion;
 		switch(opcion){
 			case 1:
+				//Variable para leer el nombre de la canción
+				char nomCancion[50];
+				//Variable para leer el id de la canción
+				int id;
+				//Variable para leer el nombre del artista de la canción
+				char nomArtista[50];
+				//Variable para leer la duración de la canción
+				char duracion[20];
+				//Variable para definir si la canción gusta o no
+				bool gusta;
+				
+				cout << "\t\t\t Escribe el código de la canción" << endl << "\t\t\t";
+				cin >> id;
 				cout << "\t\t\t Escribe el nombre de la canción" << endl << "\t\t\t";
 				cin.ignore();  //Le pide a getline que ignore el salto de linea hecho anteriormente (endl)
 				cin.getline(nomCancion,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
-				cout << "\t\t\t Se ha agregado el artista "<<nomCancion<<endl;
+				cout << "\t\t\t Escribe el nombre del Artista la canción" << endl << "\t\t\t";
+				cin.getline(nomArtista,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
+				cout << "\t\t\t Escribe la duración de la canción" << endl << "\t\t\t";
+				cin.getline(duracion,20); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
+				cout << "\t\t\t ¿Te gusta la canción? " << endl << "\t\t\t";
+				cout << "\t\t\t 1. Sí " << endl << "\t\t\t";
+				cout << "\t\t\t 2. No " << endl << "\t\t\t";
+				cin>>opcion;
+				
+				if(opcion==1){
+					gusta = true;
+				}else if(opcion==2){
+					gusta = false;
+				}else{
+					gusta = false;
+					cout<<"\t\t\t Canción sin Me gusta por defecto " << endl << "\t\t\t";
+				}
+				
+				cout << "\t\t\t Se ha agregado el la canción "<<endl<<id<<endl<<nomCancion<<endl<<nomArtista<<endl<<duracion<<endl<<gusta;
+				
+				
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -181,8 +255,7 @@ void menuAgregarAlbum(){
 	bool repetir = true;
 	//lee la opcion del usuario (elige un numero)
 	int opcion;
-	//Variable para leer el nuevo artista
-	char nomAlbum[50];	
+	vector<string> listPrueba;
 	do{
 		system("cls");
 		cout << "\t\t\t 1. Cargar Album por consola" << endl;
@@ -191,10 +264,46 @@ void menuAgregarAlbum(){
 		cin >> opcion;
 		switch(opcion){
 			case 1:
-				cout << "\t\t\t Escribe el nombre de la Album" << endl << "\t\t\t";
+				//Variable para leer el nombre del album
+				char nomAlbum[50];
+				//Variable para leer el id del album
+				int id;
+				//Variable para leer la cantidad de canciones del album
+				int cantCanciones;
+				//Variable para leer el nombre de la canción
+				char nomCancion[50];
+				//Variable para leer el año de lanzamiento del álbum
+				char fechaLanzamiento[6];
+				//Variable para leer el artista del álbum
+				char nomArtista[50];
+				
+				cout << "\t\t\t Escribe el código del álbum" << endl << "\t\t\t";
+				cin >> id;
+				cout << "\t\t\t Escribe el nombre del álbum" << endl << "\t\t\t";
 				cin.ignore();  //Le pide a getline que ignore el salto de linea hecho anteriormente (endl)
 				cin.getline(nomAlbum,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
-				cout << "\t\t\t Se ha agregado el artista "<<nomAlbum<<endl;
+				cout << "\t\t\t Escribe la cantidad de canciones del álbum" << endl << "\t\t\t";
+				cin >> cantCanciones;
+				cin.ignore();
+				
+				for(int i=0; i<cantCanciones; i++){
+					cout << "\t\t\t Escribe el nombre de la canción " <<  i+1 <<endl << "\t\t\t";
+					cin.getline(nomCancion,50);
+					listPrueba.push_back(nomCancion);
+				}
+				
+				for(string cancion : listPrueba){
+					cout << "CANCION: " << cancion << endl;
+				}
+				
+				cout << "\t\t\t Escribe el año de lanzamiento del álbum" << endl << "\t\t\t";
+				cin.getline(fechaLanzamiento,6);
+				cout << "\t\t\t Escribe el nombre del artista del álbum" << endl << "\t\t\t";
+				cin.getline(nomArtista,50);
+				
+				//RESTO
+				
+				cout << "\t\t\t Se ha agregado el album "<<endl<<nomAlbum<<endl<<id<<endl<<cantCanciones<<endl<<fechaLanzamiento<<endl<<nomArtista;
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -217,7 +326,9 @@ void menuAgregarPlaylist(){
 	//lee la opcion del usuario (elige un numero)
 	int opcion;
 	//Variable para leer el nuevo artista
-	char nomPlaylist[50];	
+	char nomPlaylist[50];
+	
+	vector<string> listPrueba;
 	do{
 		system("cls");
 		cout << "\t\t\t 1. Cargar Playlist por consola" << endl;
@@ -226,10 +337,37 @@ void menuAgregarPlaylist(){
 		cin >> opcion;
 		switch(opcion){
 			case 1:
+				//Variable para leer el nombre de la Playlist
+				char nomPlaylist[50];
+				//Variable para leer el id de la Playlist
+				int id;
+				//Variable para leer la cantidad de canciones de la Playlist
+				int cantCanciones;
+				//Variable para leer el nombre de la canción
+				char nomCancion[50];
+				
+				cout << "\t\t\t Escribe el código de la Playlist" << endl << "\t\t\t";
+				cin >> id;
 				cout << "\t\t\t Escribe el nombre de la Playlist" << endl << "\t\t\t";
 				cin.ignore();  //Le pide a getline que ignore el salto de linea hecho anteriormente (endl)
 				cin.getline(nomPlaylist,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
-				cout << "\t\t\t Se ha agregado el artista "<<nomPlaylist<<endl;
+				cout << "\t\t\t Escribe la cantidad de canciones de la Playlist" << endl << "\t\t\t";
+				cin >> cantCanciones;
+				cin.ignore();
+				
+				for(int i=0; i<cantCanciones; i++){
+					cout << "\t\t\t Escribe el nombre de la canción " <<  i+1 <<endl << "\t\t\t";
+					cin.getline(nomCancion,50);
+					listPrueba.push_back(nomCancion);
+				}
+				
+				for(string cancion : listPrueba){
+					cout << "CANCIÓN: " << cancion << endl;
+				}
+				
+				//RESTO
+				
+				cout << "\t\t\t Se ha agregado el Playlist "<<endl<<nomPlaylist<<endl<<id<<endl<<cantCanciones<<endl;
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -238,9 +376,8 @@ void menuAgregarPlaylist(){
 				break;
 			case 0:
 				repetir = false;
-				break;			
+				break;	
 		}
-		
 	}while(repetir);
 }
 
