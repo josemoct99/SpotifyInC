@@ -10,8 +10,8 @@ void menuAgregarArtista();
 void menuAgregarCancion();
 void menuAgregarAlbum();
 void menuAgregarPlaylist();
-//void menuModificarInfo();
-//void menuBuscarInfo();
+void menuModificarInfo();
+void menuBuscarInfo();
 
 //Main de la aplicación
 int main(int argc, char** argv) {
@@ -243,5 +243,100 @@ void menuAgregarPlaylist(){
 		
 	}while(repetir);
 }
+
+//Menú para modificar Información
+void menuModificarInfo(){
+		//mientras sea verdadero se mantendra el menu en pantalla
+	bool repetir = true;
+	//lee la opcion del usuario (elige un numero)
+	int opcion;
+	
+	do{
+		system("cls");
+		
+		//Titulo del menu principal
+		cout << "\n\t\t\t	Modificar información" << endl << endl;
+		//Opciones del menu principal
+        cout << "\t\t\t 1. Modificar artista" <<endl;
+        cout << "\t\t\t 2. Modificar canción" <<endl;
+        cout << "\t\t\t 3. Modificar álbum" <<endl;
+        cout << "\t\t\t 4. Modificar PlayList" << endl;
+        cout << "\t\t\t 0. Ir atrás" << endl << endl;
+		
+		//Lee la opcion elegida del usuario
+		cout << "\t\t\tElige una opción: "<<endl;
+		cin >> opcion;
+		
+		//Alternativas
+		switch(opcion){
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			case 0:
+				repetir = false;
+				break;			
+		}
+		
+	}while(repetir);
+	
+}
+
+//Menú para buscar Información
+void menuBuscarInfo(){
+		//mientras sea verdadero se mantendra el menu en pantalla
+	bool repetir = true;
+	//lee la opcion del usuario (elige un numero)
+	int opcion;
+	
+	do{
+		system("cls");
+		
+		//Titulo del menu principal
+		cout << "\n\t\t\t	Modificar información" << endl << endl;
+		//Opciones del menu principal
+        cout << "\t\t\t 1. Buscar artista" <<endl;
+        cout << "\t\t\t 2. Buscar canción" <<endl;
+        cout << "\t\t\t 3. Buscar álbum" <<endl;
+        cout << "\t\t\t 4. Buscar PlayList" << endl;
+        cout << "\t\t\t 5. Mostrar cantidad de ME GUSTA" << endl;
+        cout << "\t\t\t 6. Exportar PlayList" << endl;
+        cout << "\t\t\t 0. Ir atrás" << endl << endl;
+		
+		//Lee la opcion elegida del usuario
+		cout << "\t\t\tElige una opción: "<<endl;
+		cin >> opcion;
+		
+		//Alternativas
+		switch(opcion){
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			case 0:
+				repetir = false;
+				break;			
+		}
+		
+	}while(repetir);
+	
+}
+
 
 
