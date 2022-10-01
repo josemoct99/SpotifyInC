@@ -395,8 +395,8 @@ void menuModificarInfo(){
 		cout << "\n\t\t\t	Modificar información" << endl << endl;
 		//Opciones del menu principal
         cout << "\t\t\t 1. Modificar artista" <<endl;
-        cout << "\t\t\t 2. Modificar canción" <<endl;
-        cout << "\t\t\t 3. Modificar álbum" <<endl;
+        cout << "\t\t\t 2. Modificar albúm" <<endl;
+        cout << "\t\t\t 3. Modificar canción" <<endl;
         cout << "\t\t\t 4. Modificar PlayList" << endl;
         cout << "\t\t\t 0. Ir atrás" << endl << endl;
 		
@@ -407,13 +407,24 @@ void menuModificarInfo(){
 		//Alternativas
 		switch(opcion){
 			case 1:
-				
+				cout << "\t\t\t Escoge el artista que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR ARTISTAS
+				cout << "\t\t\t SE MUESTRA LISTADO DE ARTISTAS " << endl << "\t\t\t";
+				cout << "\t\t\t Escribe a continuación el id del Álbum para modificar o Escribe 0 para añadir un albúm nuevo al artista" << endl << "\t\t\t";
 				break;
 			case 2:
+				cout << "\t\t\t Escoge el álbum que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR ALBUMES
+				cout << "\t\t\t SE MUESTRA LISTADO DE ÁLBUMES " << endl << "\t\t\t";
+				cout << "\t\t\t Escoge el álbum que deseas modificar: " << endl << "\t\t\t";
 				
+				cout << "\t\t\t Escribe a continuación el id del Álbum para modificar o Escribe 0 para añadir un albúm nuevo al artista" << endl << "\t\t\t";				
 				break;
 			case 3:
-				
+				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR ALBUMES
+				cout << "\t\t\t SE MUESTRA LISTADO DE CANCIONES " << endl << "\t\t\t";
+				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl << "\t\t\t";
 				break;
 			case 4:
 				
@@ -438,7 +449,7 @@ void menuBuscarInfo(){
 		system("cls");
 		
 		//Titulo del menu principal
-		cout << "\n\t\t\t	Modificar información" << endl << endl;
+		cout << "\n\t\t\t	Buscar información" << endl << endl;
 		//Opciones del menu principal
         cout << "\t\t\t 1. Buscar artista" <<endl;
         cout << "\t\t\t 2. Buscar canción" <<endl;
@@ -474,6 +485,5 @@ void menuBuscarInfo(){
 	}while(repetir);
 	
 }
-
 
 
