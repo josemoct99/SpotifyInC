@@ -416,18 +416,23 @@ void menuModificarInfo(){
 				cout << "\t\t\t Escoge el álbum que deseas modificar: " << endl << "\t\t\t";
 				//LISTAR ALBUMES
 				cout << "\t\t\t SE MUESTRA LISTADO DE ÁLBUMES " << endl << "\t\t\t";
-				cout << "\t\t\t Escoge el álbum que deseas modificar: " << endl << "\t\t\t";
+				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR CANCIONES
 				
-				cout << "\t\t\t Escribe a continuación el id del Álbum para modificar o Escribe 0 para añadir un albúm nuevo al artista" << endl << "\t\t\t";				
 				break;
 			case 3:
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl << "\t\t\t";
 				//LISTAR ALBUMES
 				cout << "\t\t\t SE MUESTRA LISTADO DE CANCIONES " << endl << "\t\t\t";
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR CANCIONES
 				break;
 			case 4:
-				
+				cout << "\t\t\t Escoge la Playlist que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR ALBUMES
+				cout << "\t\t\t SE MUESTRA LISTADO DE PLAYLISTS " << endl << "\t\t\t";
+				cout << "\t\t\t Escoge la canción que deseas agregar o Escribe 0 para añadir una canción nueva al álbum: " << endl << "\t\t\t";
+				//LISTAR CANCIONES
 				break;
 			case 0:
 				repetir = false;
@@ -452,8 +457,8 @@ void menuBuscarInfo(){
 		cout << "\n\t\t\t	Buscar información" << endl << endl;
 		//Opciones del menu principal
         cout << "\t\t\t 1. Buscar artista" <<endl;
-        cout << "\t\t\t 2. Buscar canción" <<endl;
-        cout << "\t\t\t 3. Buscar álbum" <<endl;
+        cout << "\t\t\t 2. Buscar álbum" <<endl;
+        cout << "\t\t\t 3. Buscar canción" <<endl;
         cout << "\t\t\t 4. Buscar PlayList" << endl;
         cout << "\t\t\t 5. Mostrar cantidad de ME GUSTA" << endl;
         cout << "\t\t\t 6. Exportar PlayList" << endl;
@@ -466,15 +471,82 @@ void menuBuscarInfo(){
 		//Alternativas
 		switch(opcion){
 			case 1:
+				//Variable para guardar el id del artista a buscar
+				int idA;
+				cout << "\t\t\t Escribe el id del artista" << endl << "\t\t\t";
+				cin >> idA;
+				//BUSCARLO
 				
 				break;
 			case 2:
+				int opcion;
+				cout << "\t\t\t Elige cómo deseas buscar el álbum: " << endl << "\t\t\t";
+				cout << "\t\t\t 1. Mediante ID " << endl << "\t\t\t";
+				cout << "\t\t\t 2. Mediante NOMBRE" << endl << "\t\t\t";
 				
+				switch(opcion){
+					case 1:
+						//Variable para guardar el id del álbum a buscar
+						int id;
+						cout << "\t\t\t Escribe el id del álbum" << endl << "\t\t\t";
+						cin >> id;
+						//BUSCARLO
+						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
+						break;
+					case 2:
+						//Variable para guardar el id del álbum a buscar
+						char nombre[50];
+						cout << "\t\t\t Escribe el nombre del álbum" << endl << "\t\t\t";
+						cin.ignore();
+						cin.getline(nombre, 50);
+						//BUSCARLO
+						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
+						break;
+					default:
+					repetir = false;					
+				}
 				break;
 			case 3:
-				
+				cout << "\t\t\t Elige cómo deseas buscar la canción: " << endl << "\t\t\t";
+				cout << "\t\t\t 1. Mediante ID " << endl << "\t\t\t";
+				cout << "\t\t\t 2. Mediante DURACIÓN" << endl << "\t\t\t";
+				cin >> opcion;
+				switch(opcion){
+					case 1:
+						//Variable para guardar el id del álbum a buscar
+						int id;
+						cout << "\t\t\t Escribe el id de la canción" << endl << "\t\t\t";
+						cin >> id;
+						//BUSCARLO
+						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
+						break;
+					case 2:
+						//Variable para guardar el id del álbum a buscar
+						char duracion[50];
+						cout << "\t\t\t Escribe el la duración de la canción" << endl << "\t\t\t";
+						cin.ignore();
+						cin.getline(duracion, 50);
+						//BUSCARLO
+						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
+						break;
+					default:
+					repetir = false;					
+				}
 				break;
 			case 4:
+				//Variable para guardar el id de la Playlist a buscar
+				int idP;
+				cout << "\t\t\t Escribe el id de la PlayList" << endl << "\t\t\t";
+				cin >> idP;
+				//BUSCARLO
+				break;
+			case 5:
+				cout << "\t\t\t Lista de canciones con ME GUSTA: " << endl << "\t\t\t";
+				//listar canciones
+				
+				break;
+			case 6:
+				cout << "\t\t\t La PlayList se ha exportado exitosamente: " << endl << "\t\t\t";
 				
 				break;
 			case 0:
