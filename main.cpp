@@ -1,6 +1,8 @@
 #include <cstdlib> //Para usar System (refrescar la pantalla en el CLI )
 #include <iostream> //Entrada y salida de datos en consola
 #include <clocale> //Permitir tildes en consola
+#include"control.h"
+
 
 #include <vector>
 using namespace std;
@@ -163,7 +165,7 @@ void menuAgregarArtista(){
 				cout << "\t\t\t Escribe la cantidad de oyentes del artista" << endl << "\t\t\t";
 				cin >> cantOyentes;
 				
-				//RESTO
+				agregarArtista(id, nomArtista, cantAlbumes, listPrueba, cantOyentes);
 				
 				
 				
