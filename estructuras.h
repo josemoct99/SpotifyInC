@@ -43,7 +43,7 @@ struct Cancion{
 struct Playlist{
 	int id;
 	string nombre;
-	int catnCanciones;
+	int cantCanciones;
 	vector<Cancion> listaCanciones;
 
 };

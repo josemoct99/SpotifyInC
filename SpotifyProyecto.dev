@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=busqueda.h
+FileName=control.h
 CompileCpp=1
 Folder=
 Compile=1
