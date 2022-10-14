@@ -289,9 +289,13 @@ void menuAgregarAlbum(){
 				cout << "\t\t\t Escribe el nombre del artista del álbum" << endl << "\t\t\t";
 				cin.getline(nomArtista,50);
 				
-				//RESTO
+				//Función en el archivo Control.h que se encarga de crear el album y agregarlo al vector de albumes
+				if(agregarAlbum(id,nomAlbum,cantCanciones,listTemporal,fechaLanzamiento,nomArtista)){
+					cout << "\t\t\t Se ha agregado el album "<<"\n \t\t\t"<<nomAlbum<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones<<"\n \t\t\t"<<fechaLanzamiento<<"\n \t\t\t"<<nomArtista;
+				}else{
+					cout << "\t\t\t No se ha agregado el album" << endl;
+				}
 				
-				cout << "\t\t\t Se ha agregado el album "<<"\n \t\t\t"<<nomAlbum<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones<<"\n \t\t\t"<<fechaLanzamiento<<"\n \t\t\t"<<nomArtista;
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:

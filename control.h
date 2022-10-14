@@ -35,9 +35,10 @@ bool agregarArtista(int id, string nombre, int cantAlbumes, vector<string> lista
 	Artista a;
 	a.id = id;
 	a.nombre = nombre;
-	vector<Albumes> listaAlbumesFinal;
+	vector<Album> listaAlbumesFinal;
 	//Creación de albumes
 	for(int i=0; i<cantAlbumes; i++){
+		vector<string> vacio;
 		if(!buscarAlbum(nombre)){
 			agregarAlbum(generarIdAlbum(),listaAlbumes.at(i),0,vacio,"",nombre);	
 		}
@@ -256,7 +257,7 @@ int generarIdAlbum(){
 	
 	cout << "El tamaño de los albumes es: " << albumes.size() << endl;
     for(int i=0;i<albumes.size();i++){
-    	for(int j=0;j<artistas.size()-1;j++){ 
+    	for(int j=0;j<albumes.size()-1;j++){ 
 	        if(albumes.at(j).id>albumes.at(j+1).id){
 	            temp=albumes.at(j+1).id; 
 	            listaNumeros[j]=albumes.at(j).id; 
@@ -284,7 +285,7 @@ Album obtenerAlbum(string nombre){
 	Album album;
 	for (int i=0; i<albumes.size(); i++){
 		if(albumes.at(i).nombre==nombre){
-			album = albumes.at(nombre);
+			album = albumes.at(i);
 		}
 	}
     return album;   
