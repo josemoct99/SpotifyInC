@@ -161,7 +161,7 @@ void menuAgregarArtista(){
 				}else{
 					cout << "\t\t\t No se ha agregado el artista" << endl;
 				}
-				
+				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -184,6 +184,8 @@ void menuAgregarCancion(){
 	int opcion;
 	//Variable para leer el nuevo artista
 	char nomCancion[50];	
+	//Variable para mostrar en pantalla que le gusta o no
+	string megusta="";
 	do{
 		system("cls");
 		cout << "\t\t\t 1. Cargar canción por consola" << endl;
@@ -219,14 +221,21 @@ void menuAgregarCancion(){
 				
 				if(opcion==1){
 					gusta = true;
+					megusta="Te gusta";
 				}else if(opcion==2){
 					gusta = false;
+					megusta="No te gusta";
 				}else{
 					gusta = false;
+					megusta="No te gusta";
 					cout<<"\t\t\t Canción sin Me gusta por defecto " << endl << "\t\t\t";
 				}
 				
-				cout << "\t\t\t Se ha agregado la canción "<<"\n \t\t\t"<<id<<"\n \t\t\t"<<nomCancion<<"\n \t\t\t"<<nomArtista<<"\n \t\t\t"<<duracion<<"\n \t\t\t"<<gusta;
+				if(agregarCancion(id,nomCancion,nomArtista,duracion,gusta)){
+					cout << "\t\t\t Se ha agregado la canción "<<"\n \t\t\t"<<id<<"\n \t\t\t"<<nomCancion<<"\n \t\t\t"<<nomArtista<<"\n \t\t\t"<<duracion<<"\n \t\t\t"<<megusta;
+				}else{
+					cout << "\t\t\t No se ha agregado el artista" << endl;
+				}
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -290,12 +299,12 @@ void menuAgregarAlbum(){
 				cin.getline(nomArtista,50);
 				
 				//Función en el archivo Control.h que se encarga de crear el album y agregarlo al vector de albumes
-				if(agregarAlbum(id,nomAlbum,cantCanciones,listTemporal,fechaLanzamiento,nomArtista)){
+				if(agregarAlbum(id,nomAlbum,cantCanciones,listTemporal,fechaLanzamiento,nomArtista, false)){
 					cout << "\t\t\t Se ha agregado el album "<<"\n \t\t\t"<<nomAlbum<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones<<"\n \t\t\t"<<fechaLanzamiento<<"\n \t\t\t"<<nomArtista;
 				}else{
 					cout << "\t\t\t No se ha agregado el album" << endl;
 				}
-				
+				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -354,8 +363,13 @@ void menuAgregarPlaylist(){
 				}
 				
 				//RESTO
+				if(agregarPlaylist(id,nomPlaylist,cantCanciones,listTemporal)){
+					cout << "\t\t\t Se ha agregado la Playlist "<<"\n \t\t\t"<<nomPlaylist<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones;
+				}else{
+					cout << "\t\t\t No se ha agregado el album" << endl;
+				}
 				
-				cout << "\t\t\t Se ha agregado la Playlist "<<"\n \t\t\t"<<nomPlaylist<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones;
+				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -375,7 +389,7 @@ void menuModificarInfo(){
 	bool repetir = true;
 	//lee la opcion del usuario (elige un numero)
 	int opcion;
-	
+	vector<string> listTemporal;
 	do{
 		system("cls");
 		
@@ -395,10 +409,54 @@ void menuModificarInfo(){
 		//Alternativas
 		switch(opcion){
 			case 1:
+				int idArtista;
 				cout << "\t\t\t Escoge el artista que deseas modificar: " << endl;
 				//LISTAR ARTISTAS
-				cout << "\t\t\t SE MUESTRA LISTADO DE ARTISTAS " << endl;
-				cout << "\t\t\t Escribe a continuación el id del Álbum para modificar o Escribe 0 para añadir un albúm nuevo al artista"<< endl;
+				listarArtistas();
+				cin >> idArtista;
+				if(buscarArtista(idArtista)){
+					mostrarInfoArtista(obtenerArtista(idArtista));
+				}else{
+					cout << "\t\t\t Artista no existente" << endl;
+				}
+				cout << "\t\t\t Escribe el id del Álbum para eliminar o Escribe 0 para añadir uno nuevo"<< endl;
+				int idAlbum;
+				cin >> idAlbum;
+				
+				if(idAlbum==0){
+					char nomAlbum[50];
+					int id;
+					int cantCanciones;
+					char nomCancion[50];
+					char fechaLanzamiento[6];
+					
+					cout << "\t\t\t Escribe el código del nuevo álbum" << endl << "\t\t\t";
+					cin >> id;
+					cout << "\t\t\t Escribe el nombre del nuevo álbum" << endl << "\t\t\t";
+					cin.ignore();  //Le pide a getline que ignore el salto de linea hecho anteriormente (endl)
+					cin.getline(nomAlbum,50); //Ya que encuentra directamente un cambio de linea se hace lo de arriba
+					cout << "\t\t\t Escribe la cantidad de canciones del nuevo álbum" << endl << "\t\t\t";
+					cin >> cantCanciones;
+					cin.ignore();
+					
+					for(int i=0; i<cantCanciones; i++){
+						cout << "\t\t\t Escribe el nombre de la canción " <<  i+1 <<endl << "\t\t\t";
+						cin.getline(nomCancion,50);
+						listTemporal.push_back(nomCancion);
+					}
+					
+					cout << "\t\t\t Escribe el año de lanzamiento del nuevo álbum" << endl << "\t\t\t";
+					cin.getline(fechaLanzamiento,6);
+					agregarAlbum(id,nomAlbum,cantCanciones,listTemporal,fechaLanzamiento,obtenerNombreArtista(idArtista),true);
+					
+				}else{
+					if(eliminarAlbum(idArtista, idAlbum)){
+						cout << "\t\t\t Album " << idAlbum << " eliminado" << endl;	
+					}else{
+						cout << "\t\t\t Album " << idAlbum << " no se pudo eliminar" << endl;	
+					}
+				}
+				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
@@ -406,6 +464,7 @@ void menuModificarInfo(){
 				//LISTAR ALBUMES
 				cout << "\t\t\t SE MUESTRA LISTADO DE ÁLBUMES " << endl;
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
+				
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				//LISTAR CANCIONES
 				
@@ -413,15 +472,18 @@ void menuModificarInfo(){
 			case 3:
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
 				//LISTAR ALBUMES
-				cout << "\t\t\t SE MUESTRA LISTADO DE CANCIONES " << endl;
+				listarCanciones();
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
-				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				//LISTAR CANCIONES
+				int idCancion;
+				cin >> idCancion;
+				modificarCancion(idCancion);
+				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 4:
 				cout << "\t\t\t Escoge la Playlist que deseas modificar: " << endl;
 				//LISTAR ALBUMES
-				cout << "\t\t\t SE MUESTRA LISTADO DE PLAYLISTS " << endl;
+				listarPlaylists();
 				cout << "\t\t\t Escoge la canción que deseas agregar o Escribe 0 para añadir una canción nueva al álbum: " << endl;
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				//LISTAR CANCIONES
@@ -463,36 +525,52 @@ void menuBuscarInfo(){
 		//Alternativas
 		switch(opcion){
 			case 1:
+				listarArtistas();
 				//Variable para guardar el id del artista a buscar
 				int idA;
 				cout << "\t\t\t Escribe el id del artista" << endl << "\t\t\t";
 				cin >> idA;
+				if(buscarArtista(idA)){
+					mostrarInfoArtista(obtenerArtista(idA));
+				}else{
+					cout << "\t\t\t Artista no existente" << endl;
+				}
 				//BUSCARLO
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
-				
 				break;
 			case 2:
 				int opcion;
 				cout << "\t\t\t Elige cómo deseas buscar el álbum: " << endl << "\t\t\t";
 				cout << "\t\t\t 1. Mediante ID " << endl << "\t\t\t";
 				cout << "\t\t\t 2. Mediante NOMBRE" << endl << "\t\t\t";
-				
+				cin >> opcion;
 				switch(opcion){
 					case 1:
+						listarAlbumes();
 						//Variable para guardar el id del álbum a buscar
 						int id;
 						cout << "\t\t\t Escribe el id del álbum" << endl << "\t\t\t";
 						cin >> id;
-						//BUSCARLO
+						if(buscarAlbum(id)){
+							mostrarInfoAlbum(obtenerAlbum(id));
+						}else{
+							cout << "\t\t\t Album no existente" << endl;
+						}
 						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 						break;
 					case 2:
+						listarAlbumes();
 						//Variable para guardar el id del álbum a buscar
 						char nombre[50];
 						cout << "\t\t\t Escribe el nombre del álbum" << endl << "\t\t\t";
 						cin.ignore();
 						cin.getline(nombre, 50);
-						//BUSCARLO
+						
+						if(buscarAlbum(nombre)){
+							mostrarInfoAlbum(obtenerAlbum(nombre));
+						}else{
+							cout << "\t\t\t Album no existente" << endl;
+						}
 						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 						break;
 					default:
@@ -506,20 +584,28 @@ void menuBuscarInfo(){
 				cin >> opcion;
 				switch(opcion){
 					case 1:
+						listarCanciones();
 						//Variable para guardar el id del álbum a buscar
 						int id;
 						cout << "\t\t\t Escribe el id de la canción" << endl << "\t\t\t";
 						cin >> id;
-						//BUSCARLO
+						if(buscarCancion(id)){
+							mostrarInfoCancion(obtenerCancion(id));
+						}else{
+							cout << "\t\t\t Canción no existente" << endl;
+						}
 						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 						break;
 					case 2:
+						listarCanciones();
 						//Variable para guardar el id del álbum a buscar
 						char duracion[50];
 						cout << "\t\t\t Escribe el la duración de la canción" << endl << "\t\t\t";
 						cin.ignore();
 						cin.getline(duracion, 50);
 						//BUSCARLO
+						mostrarCancionesDuracion(duracion);
+						
 						system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 						break;
 					default:
@@ -527,16 +613,21 @@ void menuBuscarInfo(){
 				}
 				break;
 			case 4:
+				listarPlaylists();
 				//Variable para guardar el id de la Playlist a buscar
 				int idP;
 				cout << "\t\t\t Escribe el id de la PlayList" << endl << "\t\t\t";
 				cin >> idP;
+				if(buscarPlaylist(idP)){
+					mostrarInfoPlaylist(obtenerPlaylist(idP));
+				}else{
+					cout << "\t\t\t PlayList no existente" << endl;
+				}
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
-				//BUSCARLO
 				break;
 			case 5:
-				cout << "\t\t\t Lista de canciones con ME GUSTA: " << endl << "\t\t\t";
-				//listar canciones
+				cout << "\t\t\t Lista de canciones con ME GUSTA: " << endl;
+				mostrarCantidadMeGusta();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 6:
