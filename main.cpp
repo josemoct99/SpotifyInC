@@ -1,9 +1,18 @@
 #include <cstdlib> //Para usar System (refrescar la pantalla en el CLI )
 #include <iostream> //Entrada y salida de datos en consola
 #include <clocale> //Permitir tildes en consola
+#include <sstream>
 #include <unistd.h>//Para usar el método sleep al finalizar el programa
 #include"control.h"
+#include"escritura.h"
 using namespace std;
+//funcion para convertir int a string
+string int_to_string(int i)
+{
+    stringstream ss;
+    ss << i;
+    return ss.str();
+}
 
 //Declaración de las funciones
 void menuPrincipal();
@@ -405,7 +414,8 @@ void menuModificarInfo(){
 		//Lee la opcion elegida del usuario
 		cout << "\t\t\tElige una opción: "<<endl << "\t\t\t";
 		cin >> opcion;
-		
+		int idCancion;
+		int idAlbum;
 		//Alternativas
 		switch(opcion){
 			case 1:
@@ -420,7 +430,6 @@ void menuModificarInfo(){
 					cout << "\t\t\t Artista no existente" << endl;
 				}
 				cout << "\t\t\t Escribe el id del Álbum para eliminar o Escribe 0 para añadir uno nuevo"<< endl;
-				int idAlbum;
 				cin >> idAlbum;
 				
 				if(idAlbum==0){
@@ -461,8 +470,22 @@ void menuModificarInfo(){
 				break;
 			case 2:
 				cout << "\t\t\t Escoge el álbum que deseas modificar: " << endl;
+				listarAlbumes();
+				cin >> idAlbum;
 				//LISTAR ALBUMES
-				cout << "\t\t\t SE MUESTRA LISTADO DE ÁLBUMES " << endl;
+				cout << "\t\t\t Lista de canciones disponibles: "<< endl;
+				listarCanciones();
+				cout << "\t\t\t Escribe el id de la canción para agregar al album" << endl << "\t\t\t";
+				cin >> idCancion;
+				
+				if(modificarAlbum(idAlbum,idCancion)){
+					cout << "\t\t\t La canción con ID " << idCancion << " fue agregada al album correctamente" <<endl;
+				}else{
+					cout << "\t\t\t La canción con ID " << idCancion << " no fue agregada la PlayList" <<endl;
+				}
+				
+				
+				
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
 				
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
@@ -475,18 +498,39 @@ void menuModificarInfo(){
 				listarCanciones();
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
 				//LISTAR CANCIONES
-				int idCancion;
+				
 				cin >> idCancion;
 				modificarCancion(idCancion);
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 4:
-				cout << "\t\t\t Escoge la Playlist que deseas modificar: " << endl;
-				//LISTAR ALBUMES
+				int idPlaylist;
+				cout << "\t\t\t Escoge la Playlist que deseas modificar: " << endl << "\t\t\t";
 				listarPlaylists();
-				cout << "\t\t\t Escoge la canción que deseas agregar o Escribe 0 para añadir una canción nueva al álbum: " << endl;
+				cin >> idPlaylist;
+				cout << "\t\t\t Escribe el id de la canción para eliminar o Escribe 0 para añadir una a la PlayList" << endl<< "\t\t\t";
+				mostrarInfoPlaylist(obtenerPlaylist(idPlaylist));
+				cin >> idCancion;
+				
+				if(idCancion==0){
+					//mostrarCancionesPorAgregarEnPlaylist(idPlaylist);
+					cout << "\t\t\t Lista de canciones disponibles: "<< endl;
+					listarCanciones();
+					cout << "\t\t\t Escribe el id de la canción para agregar a la PlayList" << endl << "\t\t\t";
+					cin >> idCancion;
+					if(modificarPlaylist(idPlaylist,idCancion)){
+						cout << "\t\t\t La canción con ID " << idCancion << " fue agregada la PlayList correctamente" <<endl;
+					}else{
+						cout << "\t\t\t La canción con ID " << idCancion << " no fue agregada la PlayList" <<endl;
+					}
+				}else{
+					if(eliminarCancionPlaylist(idPlaylist, idCancion)){
+						cout << "\t\t\t La canción con ID " << idCancion << " fue eliminada de la PlayList correctamente" <<endl;
+					}else{
+						cout << "\t\t\t La canción con ID " << idCancion << " no pudo ser eliminada de la PlayList" <<endl;
+					}
+				}
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
-				//LISTAR CANCIONES
 				break;
 			case 0:
 				repetir = false;
@@ -521,7 +565,8 @@ void menuBuscarInfo(){
 		//Lee la opcion elegida del usuario
 		cout << "\t\t\tElige una opción: "<<endl<<"\t\t\t";
 		cin >> opcion;
-		
+		Playlist play;
+		vector<string> listTemporal;
 		//Alternativas
 		switch(opcion){
 			case 1:
@@ -631,7 +676,24 @@ void menuBuscarInfo(){
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 6:
-				cout << "\t\t\t La PlayList se ha exportado exitosamente: " << endl << "\t\t\t";
+				int idPlayList;
+				listarPlaylists();
+				cout << "\t\t\t Escriba el id de la PlayList a exportar" << endl << "\t\t\t";
+				cin >> idPlayList;
+				
+				if(buscarPlaylist(idPlayList)){
+					play = obtenerPlaylist(idPlayList);
+					
+					for(Cancion c : play.listaCanciones){
+						listTemporal.push_back(c.nombre);
+					}
+					
+					generarArchivo(int_to_string(play.id),play.nombre,int_to_string(play.cantCanciones),listTemporal);
+					cout << "\t\t\t La PlayList se ha exportado exitosamente: " << endl << "\t\t\t";
+				}else{
+					cout << "\t\t\t La Playlist con id " << idPlayList << " no existe" << endl;
+				}
+				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 0:

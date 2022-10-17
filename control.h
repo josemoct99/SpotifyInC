@@ -636,7 +636,7 @@ void mostrarInfoPlaylist(Playlist p){
 	cout << "\t\t\t* ID:" << p.id << " - NOMBRE:" << p.nombre << " - CANTIDAD DE CANCIONES: " << p.cantCanciones << endl;
 	cout << "\t\t\t Listado de canciones:" <<endl;
 	for(Cancion c : p.listaCanciones){
-		cout << "\t\t\t\t -" << c.nombre << endl;
+		cout << "\t\t\t\t ID:" << c.id << " -NOMBRE:" << c.nombre << endl;
 	}
 }
 
@@ -689,7 +689,21 @@ void modificarCancion(int id){
 		}
 	}
 }
-
+/*
+void mostrarCancionesPorAgregarEnPlaylist(int idPlaylist){
+	for(int i=0; i<playLists.size();i++){
+		if(playLists.at(i).id==idPlaylist){
+			for(int k=0; k<playLists.at(i).listaCanciones.size();k++){
+				for(int j=0; j<canciones.size();j++){
+					if(canciones.at(j).id!=playLists.at(i).listaCanciones.at(k).id){
+						cout << "* ID:" << canciones.at(j).id << " - NOMBRE:" << canciones.at(j).nombre << endl;
+					}
+				}
+				
+			}
+		}
+	}
+}*/
 
 //MÉTODOS PARA MODIFICAR ELEMENTOS
 void modificarArtista(int id, Album a){
@@ -709,7 +723,35 @@ void modificarAlbum(string nombre, Artista a){
 	}
 }
 
+bool modificarPlaylist(int idPlaylist, int idCancion){
+	for(int i=0; i<playLists.size();i++){
+		if(playLists.at(i).id==idPlaylist){
+			for(int j=0; j<canciones.size();j++){
+				if(canciones.at(j).id==idCancion){
+					playLists.at(i).listaCanciones.push_back(canciones.at(j));
+					playLists.at(i).cantCanciones++;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 
+bool modificarAlbum(int idAlbum, int idCancion){
+	for(int i=0; i<albumes.size();i++){
+		if(albumes.at(i).id==idAlbum){
+			for(int j=0; j<canciones.size();j++){
+				if(canciones.at(j).id==idCancion){
+					albumes.at(i).listaCanciones.push_back(canciones.at(j));
+					albumes.at(i).cantCanciones++;
+					return true;
+				}
+			}
+		}
+	}
+	return false;	
+}
 
 //METODOS PARA ELIMINAR ELEMENTOS
 
@@ -734,6 +776,24 @@ bool eliminarAlbum(int idArtista, int idAlbum){
 					}
 				}
 				return true;
+		}
+	}
+	return false;
+}
+
+bool eliminarCancionPlaylist(int idPlaylist, int idCancion){
+	vector<Cancion>::iterator itPlayLists;
+	
+	for(int i=0; i<playLists.size();i++){
+		if(playLists.at(i).id==idPlaylist){
+			itPlayLists = playLists.at(0).listaCanciones.begin();
+			for(int j=0; j<playLists.at(i).listaCanciones.size();j++){
+				if(playLists.at(i).listaCanciones.at(j).id==idCancion){
+					playLists.at(i).listaCanciones.erase(itPlayLists+j);
+					playLists.at(i).cantCanciones--;
+					return true;
+				}
+			}
 		}
 	}
 	return false;
