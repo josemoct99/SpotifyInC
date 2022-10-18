@@ -1,15 +1,12 @@
 #include <fstream> 
 #include <iostream> //Entrada y salida de datos en consola
+#include<vector>//Para usar vector
 using namespace std;
 
-ofstream archivoPlayList;
+ofstream archivoGenerarPlayList;
 
 void crearArchivoPlayList(string id){
-	archivoPlayList.open("./archivos/PlayList_"+ id + "_GENERADA.txt", ios::out);//Acá iría añadido el id de la PlayList
-}
-
-void cerrarArchivoPlayList(){
-	archivoPlayList.close();
+	archivoGenerarPlayList.open("./archivos/PlayList_"+ id + "_GENERADA.txt", ios::out);//Acá iría añadido el id de la PlayList
 }
 
 void generarArchivo(string id, string nombre, string cantCanciones, vector<string> canciones){
@@ -23,6 +20,6 @@ void generarArchivo(string id, string nombre, string cantCanciones, vector<strin
 	}
 	//Escribe en el archivo la info
 	crearArchivoPlayList(id);
-	archivoPlayList << texto;
-	cerrarArchivoPlayList();
+	archivoGenerarPlayList << texto;
+	archivoGenerarPlayList.close();
 }

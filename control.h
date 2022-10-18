@@ -94,7 +94,7 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 	vector<string> vacio;
 	int cantOyentes =0;
 	if(!buscarArtista(artista) && !primerArtista){
-		cout << "\t\t\t El artista" << artista << " no existe, ingresa su cantidad de oyentes: " << endl << "\t\t\t";
+		cout << "\t\t\t El artista " << artista << " no existe, ingresa su cantidad de oyentes: " << endl << "\t\t\t";
 		cin >> cantOyentes;
 		int idArtista = generarIdArtista();
 		agregarArtista(idArtista,artista,0,vacio,cantOyentes);
@@ -113,17 +113,36 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 				}
 		}
 	}else{
-		cout << "NO ENTRO A NADA";
 	}
 	
 	
 	//Creación y agregación de canciones
 	vector<Cancion> listaCancionesFinal;
 	for(int i=0; i<cantCanciones; i++){
-		cout << "Voy a crear canciones para album"<<endl;
 		vector<string> vacio;
 		if(!buscarCancion(nombre)){
-			agregarCancion(generarIdCancion(), listaCanciones.at(i),artista,"1 00",false);
+			char duracion[50];
+			bool gusta;
+			int opcion;
+			cout << "\t\t\t La canción " << listaCanciones.at(i) << " no existe"<<endl;
+			cin.ignore(); // Evita error al iniciar al leer
+			cout << "\t\t\t Escribe la duración de la canción: " << endl<< "\t\t\t";
+			cin.getline(duracion, 50);
+			cout << "\t\t\t ¿Te gusta la canción? " << endl << "\t\t\t";
+			cout << "\t\t\t 1. Sí " << endl << "\t\t\t";
+			cout << "\t\t\t 2. No " << endl << "\t\t\t";
+			cin>>opcion;
+			
+			if(opcion==1){
+				gusta = true;
+			}else if(opcion==2){
+				gusta = false;
+			}else{
+				gusta = false;
+				cout<<"\t\t\t Canción sin Me gusta por defecto " << endl << "\t\t\t";
+			}
+			//-----------------------------------------------------------------------------------------------
+			agregarCancion(generarIdCancion(), listaCanciones.at(i),artista,duracion,gusta);
 		}
 		listaCancionesFinal.push_back(obtenerCancion(listaCanciones.at(i)));
 	}

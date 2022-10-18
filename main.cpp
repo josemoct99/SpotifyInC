@@ -3,8 +3,8 @@
 #include <clocale> //Permitir tildes en consola
 #include <sstream>
 #include <unistd.h>//Para usar el método sleep al finalizar el programa
-#include"control.h"
 #include"escritura.h"
+#include"lectura.h"
 using namespace std;
 //funcion para convertir int a string
 string int_to_string(int i)
@@ -174,7 +174,8 @@ void menuAgregarArtista(){
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
-				cout << "Acá se carga por archivo de texto" << endl;
+				cout << "A continuación " << endl;
+				leerArchivoArtista();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 0:
@@ -243,12 +244,12 @@ void menuAgregarCancion(){
 				if(agregarCancion(id,nomCancion,nomArtista,duracion,gusta)){
 					cout << "\t\t\t Se ha agregado la canción "<<"\n \t\t\t"<<id<<"\n \t\t\t"<<nomCancion<<"\n \t\t\t"<<nomArtista<<"\n \t\t\t"<<duracion<<"\n \t\t\t"<<megusta;
 				}else{
-					cout << "\t\t\t No se ha agregado el artista" << endl;
+					cout << "\t\t\t No se ha agregado la canción" << endl;
 				}
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
-				cout << "Acá se carga por archivo de texto" << endl;
+				leerArchivoCancion();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 0:
@@ -317,7 +318,7 @@ void menuAgregarAlbum(){
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
-				cout << "Acá se carga por archivo de texto" << endl;
+				leerArchivoAlbum();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 0:
@@ -372,17 +373,19 @@ void menuAgregarPlaylist(){
 				}
 				
 				//RESTO
+				//cin.ignore();
 				if(agregarPlaylist(id,nomPlaylist,cantCanciones,listTemporal)){
-					cout << "\t\t\t Se ha agregado la Playlist "<<"\n \t\t\t"<<nomPlaylist<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones;
+					cout << "\t\t\t Se ha agregado la PlayList "<<"\n \t\t\t"<<nomPlaylist<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones;
 				}else{
-					cout << "\t\t\t No se ha agregado el album" << endl;
+					cout << "\t\t\t No se ha agregado la PlayList" << endl;
 				}
 				
 				listTemporal.clear();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
-				cout << "Acá se carga por archivo de texto" << endl;
+				cin.ignore();
+				leerArchivoPlayList();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 0:
