@@ -174,7 +174,6 @@ void menuAgregarArtista(){
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
-				cout << "A continuación " << endl;
 				leerArchivoArtista();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
@@ -318,6 +317,7 @@ void menuAgregarAlbum(){
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:
+				cin.ignore();
 				leerArchivoAlbum();
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
@@ -423,9 +423,9 @@ void menuModificarInfo(){
 		switch(opcion){
 			case 1:
 				int idArtista;
-				cout << "\t\t\t Escoge el artista que deseas modificar: " << endl;
-				//LISTAR ARTISTAS
 				listarArtistas();
+				cout << "\t\t\t Escoge el artista que deseas modificar: " << endl << "\t\t\t";
+				//LISTAR ARTISTAS
 				cin >> idArtista;
 				if(buscarArtista(idArtista)){
 					mostrarInfoArtista(obtenerArtista(idArtista));
@@ -487,10 +487,6 @@ void menuModificarInfo(){
 					cout << "\t\t\t La canción con ID " << idCancion << " no fue agregada la PlayList" <<endl;
 				}
 				
-				
-				
-				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
-				
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				//LISTAR CANCIONES
 				
@@ -499,9 +495,7 @@ void menuModificarInfo(){
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
 				//LISTAR ALBUMES
 				listarCanciones();
-				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
 				//LISTAR CANCIONES
-				
 				cin >> idCancion;
 				modificarCancion(idCancion);
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla

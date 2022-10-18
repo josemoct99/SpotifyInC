@@ -47,7 +47,6 @@ bool eliminarAlbum(int idArtista, int idAlbum);
 
 //Metodo para agregar un artista a la lista
 bool agregarArtista(int id, string nombre, int cantAlbumes, vector<string> listaAlbumes, int cantOyentes){
-	cout << "Entro a agregarArtista"<<endl;
 	if(buscarArtista(id)){
 		cout << "\n\t\t\t Artista ya existente" << endl;
 		return false;
@@ -62,7 +61,6 @@ bool agregarArtista(int id, string nombre, int cantAlbumes, vector<string> lista
 	//Creación y agregación de albumes
 	vector<Album> listaAlbumesFinal;
 	for(int i=0; i<cantAlbumes; i++){
-		cout << "Voy a crear albumes para el artista"<<endl;
 		vector<string> vacio;
 		if(!buscarAlbum(nombre)){
 			agregarAlbum(generarIdAlbum(),listaAlbumes.at(i),0,vacio,"",nombre, true);
@@ -74,12 +72,11 @@ bool agregarArtista(int id, string nombre, int cantAlbumes, vector<string> lista
 	
 	//Agregación del artista
 	artistas.push_back(a);
-	listarArtistas();
+	//listarArtistas();
 	return true;
 }
 //Metodo para agregar un album a la lista
 bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> listaCanciones, string fechaLanzamiento, string artista, bool primerArtista){
-	cout << "Entro a agregarAlbum"<<endl;
 	if(buscarAlbum(id)){
 		cout << "\n\t\t\t Album ya existente" << endl;
 		return false;
@@ -104,6 +101,7 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 			}
 		}
 		modificarArtista(idArtista,a);
+		cin.ignore();
 	}else if (buscarArtista(artista)){
 		for (int i=0; i<artistas.size(); i++){
 				if(artistas.at(i).nombre == artista){
@@ -125,8 +123,8 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 			bool gusta;
 			int opcion;
 			cout << "\t\t\t La canción " << listaCanciones.at(i) << " no existe"<<endl;
-			cin.ignore(); // Evita error al iniciar al leer
 			cout << "\t\t\t Escribe la duración de la canción: " << endl<< "\t\t\t";
+			if(i!=0){cin.ignore();} // Evita error al iniciar al leer
 			cin.getline(duracion, 50);
 			cout << "\t\t\t ¿Te gusta la canción? " << endl << "\t\t\t";
 			cout << "\t\t\t 1. Sí " << endl << "\t\t\t";
@@ -149,11 +147,10 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 	a.listaCanciones = listaCancionesFinal;
 	
 	albumes.push_back(a);
-	listarAlbumes();
+	//listarAlbumes();
 }
 //Metodo para agregar un album a la lista
 bool agregarCancion(int id, string nombre, string artista, string duracion, bool gusta){
-	cout << "Entro a agregarCancion"<<endl;
 	if(buscarCancion(id)){
 		cout << "\n\t\t\t Canción ya existente" << endl;
 		return false;
@@ -174,11 +171,10 @@ bool agregarCancion(int id, string nombre, string artista, string duracion, bool
 	c.artista = obtenerArtista(artista);
 
 	canciones.push_back(c);
-	listarCanciones();
+	//listarCanciones();
 }
 //Metodo para agregar una playlist a la lista
 bool agregarPlaylist(int id, string nombre, int cantCanciones, vector<string> listaCanciones){
-	cout << "Entro a agregarPlaylist"<<endl;
 	if(buscarPlaylist(id)){
 		cout << "\n\t\t\t Playlist ya existente" << endl;
 		return false;
@@ -224,7 +220,7 @@ bool agregarPlaylist(int id, string nombre, int cantCanciones, vector<string> li
 	p.listaCanciones = listaCancionesFinal;
 	
 	playLists.push_back(p);
-	listarPlaylists();
+	//listarPlaylists();
 }
 
 
@@ -310,8 +306,6 @@ bool buscarPlaylist(string nombre){
 
 
 
-
-
 //METODOS PARA LISTAR
 //Listar artistas
 void listarArtistas(){
@@ -324,7 +318,6 @@ void listarArtistas(){
 void listarAlbumes(){
 	cout << "\n\t\t\t Lista de albumes: " << endl;
 	for(Album a : albumes){
-		cout << "For Lista Albumes" << endl;
 		cout << "\n\t\t\t * ID:" << a.id << " - NOMBRE:" << a.nombre << endl;
 	}
 }
@@ -335,9 +328,9 @@ void listarCanciones(){
 	for(Cancion c : canciones){
 		cout << "\n\t\t\t * ID:" << c.id << " - NOMBRE:" << c.nombre;
 		if(c.gusta){
-			cout << " TE GUSTA"<<endl;
+			cout << " -TE GUSTA"<<endl;
 		}else{
-			cout << " NO TE GUSTA"<<endl;
+			cout << " -NO TE GUSTA"<<endl;
 		}
 	}
 }
@@ -354,14 +347,11 @@ void listarPlaylists(){
 
 //Generar IDs automáticos
 
-
-
 //Generar ID para un artista
 int generarIdArtista(){	
 	if(artistas.size()==0){
 		return 1;
 	}else if(artistas.size()==1){
-		cout << "artistas at 0: " << artistas.at(0).id<< endl;
 		return artistas.at(0).id+1;
 	}
 	
@@ -372,7 +362,6 @@ int generarIdArtista(){
 		listaNumeros[i] = artistas.at(i).id;
 	}
 	
-	cout << "El tamaño de los artistas es: " << artistas.size() << endl;
     for(int i=0;i<artistas.size();i++){
     	for(int j=0;j<artistas.size()-1;j++){ 
 	        if(artistas.at(j).id>artistas.at(j+1).id){
@@ -382,44 +371,15 @@ int generarIdArtista(){
 			}
         }
 	}
-	cout << "LISTADO DE IDs en LISTANUMEROS: " << endl;
-	for(int num : listaNumeros){
-		cout << " - " << num;
-	}
-	cout << endl;
-		cout << "LISTADO DE IDs en ARTISTAS: " << endl;
-	for(Artista a : artistas){
-		cout << " - " << a.id;
-	}
-	cout << "ID GENERADO ALBUM AUTOMÁTICO: " << listaNumeros[artistas.size()-1]+1 << endl;
 	return listaNumeros[artistas.size()-1]+1;
 }
 
-
-/*int generarIdArtista(){
-	if(artistas.size()==0){
-		return 1;
-	}
-	int temp; 
-	int listaNumeros[artistas.size()];
-    for(int i=0;i<artistas.size();i++){
-    	for(int j=0;j<artistas.size()-1;j++){ 
-	        if(artistas.at(j).id<artistas.at(j+1).id){
-	            temp=artistas.at(j).id; 
-	            listaNumeros[j]=artistas.at(j+1).id; 
-	            listaNumeros[j+1]=temp;} 
-        }
-	}
-	cout << "ID GENERADO ARTISTA AUTOMÁTICO: " << listaNumeros[artistas.size()-1]+1 << endl;
-	return listaNumeros[artistas.size()-1]+1;
-}*/
 
 //Generar ID para un album
 int generarIdAlbum(){	
 	if(albumes.size()==0){
 		return 1;
 	}else if(albumes.size()==1){
-		cout << "Albumes at 0: " << albumes.at(0).id<< endl;
 		return albumes.at(0).id+1;
 	}
 	
@@ -430,7 +390,6 @@ int generarIdAlbum(){
 		listaNumeros[i] = albumes.at(i).id;
 	}
 	
-	cout << "El tamaño de los albumes es: " << albumes.size() << endl;
     for(int i=0;i<albumes.size();i++){
     	for(int j=0;j<albumes.size()-1;j++){ 
 	        if(albumes.at(j).id>albumes.at(j+1).id){
@@ -440,16 +399,6 @@ int generarIdAlbum(){
 			}
         }
 	}
-	cout << "LISTADO DE IDs en LISTANUMEROS: " << endl;
-	for(int num : listaNumeros){
-		cout << " - " << num;
-	}
-	cout << endl;
-		cout << "LISTADO DE IDs en ALBUMES: " << endl;
-	for(Album a : albumes){
-		cout << " - " << a.id;
-	}
-	cout << "ID GENERADO ALBUM AUTOMÁTICO: " << listaNumeros[albumes.size()-1]+1 << endl;
 	return listaNumeros[albumes.size()-1]+1;
 }
 
@@ -459,7 +408,6 @@ int generarIdCancion(){
 	if(canciones.size()==0){
 		return 1;
 	}else if(canciones.size()==1){
-		cout << "Canciones at 0: " << canciones.at(0).id<< endl;
 		return canciones.at(0).id+1;
 	}
 	
@@ -470,7 +418,6 @@ int generarIdCancion(){
 		listaNumeros[i] = canciones.at(i).id;
 	}
 	
-	cout << "El tamaño de las canciones es: " << canciones.size() << endl;
     for(int i=0;i<canciones.size();i++){
     	for(int j=0;j<canciones.size()-1;j++){ 
 	        if(canciones.at(j).id>canciones.at(j+1).id){
@@ -480,16 +427,7 @@ int generarIdCancion(){
 			}
         }
 	}
-	cout << "LISTADO DE IDs en LISTANUMEROS: " << endl;
-	for(int num : listaNumeros){
-		cout << " - " << num;
-	}
-	cout << endl;
-		cout << "LISTADO DE IDs en CANCIONES: " << endl;
-	for(Cancion a : canciones){
-		cout << " - " << a.id;
-	}
-	cout << "ID GENERADO ALBUM AUTOMÁTICO: " << listaNumeros[canciones.size()-1]+1 << endl;
+
 	return listaNumeros[canciones.size()-1]+1;
 }
 
@@ -498,7 +436,6 @@ int generarIdPlaylist(){
 	if(playLists.size()==0){
 		return 1;
 	}else if(playLists.size()==1){
-		cout << "playLists at 0: " << playLists.at(0).id<< endl;
 		return playLists.at(0).id+1;
 	}
 	
@@ -509,7 +446,6 @@ int generarIdPlaylist(){
 		listaNumeros[i] = playLists.at(i).id;
 	}
 	
-	cout << "El tamaño de los playLists es: " << playLists.size() << endl;
     for(int i=0;i<playLists.size();i++){
     	for(int j=0;j<playLists.size()-1;j++){ 
 	        if(playLists.at(j).id>playLists.at(j+1).id){
@@ -519,16 +455,6 @@ int generarIdPlaylist(){
 			}
         }
 	}
-	cout << "LISTADO DE IDs en LISTANUMEROS: " << endl;
-	for(int num : listaNumeros){
-		cout << " - " << num;
-	}
-	cout << endl;
-		cout << "LISTADO DE IDs en playLists: " << endl;
-	for(Playlist p : playLists){
-		cout << " - " << p.id;
-	}
-	cout << "ID GENERADO ALBUM AUTOMÁTICO: " << listaNumeros[playLists.size()-1]+1 << endl;
 	return listaNumeros[playLists.size()-1]+1;
 }
 
@@ -708,21 +634,6 @@ void modificarCancion(int id){
 		}
 	}
 }
-/*
-void mostrarCancionesPorAgregarEnPlaylist(int idPlaylist){
-	for(int i=0; i<playLists.size();i++){
-		if(playLists.at(i).id==idPlaylist){
-			for(int k=0; k<playLists.at(i).listaCanciones.size();k++){
-				for(int j=0; j<canciones.size();j++){
-					if(canciones.at(j).id!=playLists.at(i).listaCanciones.at(k).id){
-						cout << "* ID:" << canciones.at(j).id << " - NOMBRE:" << canciones.at(j).nombre << endl;
-					}
-				}
-				
-			}
-		}
-	}
-}*/
 
 //MÉTODOS PARA MODIFICAR ELEMENTOS
 void modificarArtista(int id, Album a){
@@ -817,11 +728,4 @@ bool eliminarCancionPlaylist(int idPlaylist, int idCancion){
 	}
 	return false;
 }
-
-
-
-
-
-
-
 

@@ -39,6 +39,8 @@ void leerArchivoArtista(){
 	}else{
 		cout << "\t\t\t No se ha agregado el artista" << endl;
 	}
+	datos.clear();
+	archivoArtista.close();
 }
 
 void leerArchivoAlbum(){
@@ -75,7 +77,8 @@ void leerArchivoAlbum(){
 	}else{
 		cout << "\t\t\t No se ha agregado el album" << endl;
 	}
-	
+	datos.clear();
+	archivoAlbum.close();
 }
 
 void leerArchivoCancion(){
@@ -111,7 +114,8 @@ void leerArchivoCancion(){
 	}else{
 		cout << "\t\t\t No se ha agregado la canción" << endl;
 	}
-	
+	datos.clear();
+	archivoCancion.close();
 }
 
 void leerArchivoPlayList(){
@@ -142,4 +146,6 @@ void leerArchivoPlayList(){
 	}else{
 		cout << "\t\t\t No se ha agregado la PlayList" << endl;
 	}
+	datos.clear();
+	archivoPlayList.close();
 }
