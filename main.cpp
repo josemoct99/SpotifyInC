@@ -36,7 +36,6 @@ void menuPrincipal(){
 	bool repetir = true;
 	//lee la opcion del usuario (elige un numero)
 	int opcion;
-	
 	do{
 		system("cls");
 		
@@ -372,8 +371,6 @@ void menuAgregarPlaylist(){
 					listTemporal.push_back(nomCancion);
 				}
 				
-				//RESTO
-				//cin.ignore();
 				if(agregarPlaylist(id,nomPlaylist,cantCanciones,listTemporal)){
 					cout << "\t\t\t Se ha agregado la PlayList "<<"\n \t\t\t"<<nomPlaylist<<"\n \t\t\t"<<id<<"\n \t\t\t"<<cantCanciones;
 				}else{
@@ -486,14 +483,10 @@ void menuModificarInfo(){
 				}else{
 					cout << "\t\t\t La canción con ID " << idCancion << " no fue agregada la PlayList" <<endl;
 				}
-				
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
-				//LISTAR CANCIONES
-				
 				break;
 			case 3:
 				cout << "\t\t\t Escoge la canción que deseas modificar: " << endl;
-				//LISTAR ALBUMES
 				listarCanciones();
 				//LISTAR CANCIONES
 				cin >> idCancion;
@@ -510,7 +503,6 @@ void menuModificarInfo(){
 				cin >> idCancion;
 				
 				if(idCancion==0){
-					//mostrarCancionesPorAgregarEnPlaylist(idPlaylist);
 					cout << "\t\t\t Lista de canciones disponibles: "<< endl;
 					listarCanciones();
 					cout << "\t\t\t Escribe el id de la canción para agregar a la PlayList" << endl << "\t\t\t";
@@ -577,7 +569,6 @@ void menuBuscarInfo(){
 				}else{
 					cout << "\t\t\t Artista no existente" << endl;
 				}
-				//BUSCARLO
 				system("pause>nul"); //Hará una pausa y no se mostrará nada más en pantalla
 				break;
 			case 2:

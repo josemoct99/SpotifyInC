@@ -86,7 +86,6 @@ bool agregarAlbum(int id, string nombre, int cantCanciones, vector<string> lista
 	a.nombre = nombre;
 	a.cantCanciones = cantCanciones;
 	a.fechaLanzamiento = fechaLanzamiento;
-	//
 	
 	vector<string> vacio;
 	int cantOyentes =0;
@@ -183,7 +182,6 @@ bool agregarPlaylist(int id, string nombre, int cantCanciones, vector<string> li
 	p.id = id;
 	p.nombre = nombre;
 	p.cantCanciones = cantCanciones;
-	//
 	
 	//Creación y agregación de canciones
 	vector<Cancion> listaCancionesFinal;
@@ -306,7 +304,7 @@ bool buscarPlaylist(string nombre){
 
 
 
-//METODOS PARA LISTAR
+//METODOS PARA LISTAR INFORMACIÓN
 //Listar artistas
 void listarArtistas(){
 	cout << "\n\t\t\t Lista de artistas: " << endl;
@@ -345,8 +343,7 @@ void listarPlaylists(){
 
 
 
-//Generar IDs automáticos
-
+//GENERADORES DE ID AUTOMÁTICOS
 //Generar ID para un artista
 int generarIdArtista(){	
 	if(artistas.size()==0){
@@ -374,7 +371,6 @@ int generarIdArtista(){
 	return listaNumeros[artistas.size()-1]+1;
 }
 
-
 //Generar ID para un album
 int generarIdAlbum(){	
 	if(albumes.size()==0){
@@ -401,7 +397,6 @@ int generarIdAlbum(){
 	}
 	return listaNumeros[albumes.size()-1]+1;
 }
-
 
 //Generar ID para una canción
 int generarIdCancion(){
@@ -459,8 +454,7 @@ int generarIdPlaylist(){
 }
 
 
-
-//Métodos para devolver las estructuras
+//MÉTODOS PARA DEVOLVER COPIAS DE LAS ESTRUCTURAS
 Artista obtenerArtista(string nombre){
 	Artista artista;
 	for (int i=0; i<artistas.size(); i++){
@@ -542,7 +536,7 @@ Playlist obtenerPlaylist(int id){
 }
 
 
-//Métodos para mostrar toda la info 
+//MÉTODOS PARA MOSTRAR INFO DETALLADA
 //Mostrar info de artista
 void mostrarInfoArtista(Artista a){
 	cout << "\t\t\t* ID:" << a.id << " - NOMBRE:" << a.nombre << " - CANTIDAD DE ALBUMES: " << a.cantAlbumes << endl;
@@ -585,7 +579,7 @@ void mostrarInfoPlaylist(Playlist p){
 	}
 }
 
-//METODOS EXTRAS
+//METODOS EXTRAS NECESARIOS
 void mostrarCancionesDuracion(string duracion){
 	cout << "\t\t\t Canciones con duración " << duracion << " encontradas: "<<endl; 
 	for(Cancion c : canciones){
