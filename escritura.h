@@ -5,10 +5,6 @@ using namespace std;
 
 ofstream archivoGenerarPlayList;
 
-void crearArchivoPlayList(string id){
-	archivoGenerarPlayList.open("./archivos/PlayList_"+ id + "_GENERADA.txt", ios::out);//Acá iría añadido el id de la PlayList
-}
-
 void generarArchivo(string id, string nombre, string cantCanciones, vector<string> canciones){
 	string texto = "";
 	texto+=id+"\n";
@@ -19,7 +15,7 @@ void generarArchivo(string id, string nombre, string cantCanciones, vector<strin
 		texto+="\n"+s;
 	}
 	//Escribe en el archivo la info
-	crearArchivoPlayList(id);
+	archivoGenerarPlayList.open("./archivos/PlayList_"+ id + "_GENERADA.txt", ios::out);//Acá iría añadido el id de la PlayList
 	archivoGenerarPlayList << texto;
 	archivoGenerarPlayList.close();
 }

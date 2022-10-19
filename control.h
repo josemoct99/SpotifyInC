@@ -615,20 +615,6 @@ int obtenerIdArtista(string nombre){
     return 0;   
 }
 
-void modificarCancion(int id){
-	for (int i=0; i<canciones.size(); i++){
-		if(canciones.at(i).id==id){
-			if(canciones.at(i).gusta){
-				canciones.at(i).gusta = false;
-				cout << "\t\t\t La canción " << canciones.at(i).nombre << " ahora NO TE GUSTA" << endl;
-			}else{
-				canciones.at(i).gusta = true;
-				cout << "\t\t\t La canción " << canciones.at(i).nombre << " ahora TE GUSTA" << endl;
-			}
-		}
-	}
-}
-
 //MÉTODOS PARA MODIFICAR ELEMENTOS
 void modificarArtista(int id, Album a){
 	for (int i=0; i<artistas.size(); i++){
@@ -643,6 +629,20 @@ void modificarAlbum(string nombre, Artista a){
 	for (int i=0; i<albumes.size(); i++){
 		if(albumes.at(i).nombre==nombre){
 			albumes.at(i).artista = a;
+		}
+	}
+}
+
+void modificarCancion(int id){
+	for (int i=0; i<canciones.size(); i++){
+		if(canciones.at(i).id==id){
+			if(canciones.at(i).gusta){
+				canciones.at(i).gusta = false;
+				cout << "\t\t\t La canción " << canciones.at(i).nombre << " ahora NO TE GUSTA" << endl;
+			}else{
+				canciones.at(i).gusta = true;
+				cout << "\t\t\t La canción " << canciones.at(i).nombre << " ahora TE GUSTA" << endl;
+			}
 		}
 	}
 }
